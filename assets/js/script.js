@@ -4,6 +4,8 @@
 // Jeff's api key GGVmINtK7x38KXJV7CuAUu8cd8BCplr2
 // Matt's api key 3r8wxnByCq8PgG9dNcHuw5eRnL9HqNGj
 
+//TICKET MASTER API Call: https://app.ticketmaster.com/discovery/v2/events?apikey=GGVmINtK7x38KXJV7CuAUu8cd8BCplr2&keyword= <artist/band> &locale=*
+
 // TICKET MASTER API REQUEST
 // using keyword parameter enter artist name 
 // if artist name cant be found or artist has no concerts coming up, data.page.totalElements will be return 0\
@@ -21,3 +23,11 @@
 // data._embedded[i]._embedded.venues[0].state.name gives name of state that venue is located in
 // data._embedded[i]._embedded.venues[0].city.name gives name of city that venue is located in
 // data._embedded[i]._embedded.venues[0].country.countryCode (can change to name instead of countryCode) gives country code
+
+//Taste Dive API Key: 443285-soundsli-Y4UIPD8B
+
+//TASTE DIVE API CALL: https://tastedive.com/api/similar?q= <artist/band> &k=443285-soundsli-Y4UIPD8B
+
+//TASTE DIVE API Request
+//data.similar.Results[] to get the list of recommendations
+//data.similar.Results[i].name to get the artist name
