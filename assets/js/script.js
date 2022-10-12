@@ -31,3 +31,36 @@
 //TASTE DIVE API Request
 //data.similar.Results[] to get the list of recommendations
 //data.similar.Results[i].name to get the artist name
+
+var festivalNameEL = document.getElementById("festival-name");
+var concertDateEL = document.getElementById("concert-date");
+var ticketInfoEL = document.getElementById("ticket-info");
+var ticketUrlEL = document.getElementById("ticket-url");
+var venueInfoEL = document.getElementById("venue-info");
+var venueUrlEL = document.getElementById("venue-url");
+
+function getApiTicket () {
+    var requestUrl = 'https://app.ticketmaster.com/discovery/v2/events?apikey=GGVmINtK7x38KXJV7CuAUu8cd8BCplr2&keyword= <artist/band> &locale=*'
+    fetch(requestUrl)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            for (var i =0; data.length; i++) {
+                
+                var festName = document.createElement('h2');
+                var conDate = document.createElement('p');
+                var ticketFo= document.createElement('p');
+                var venInfo = document.createElement('p');
+                var venUrl = document.createElement('p');
+
+                festName.textContent = data._embedded[i].name;
+                conDate.textContent =  data._embedded[i].dates.start.localDate;
+                ticketFo.textContent = data._embedded[i].sales.public.startDateTime;
+                venInfo.textContent = data._embedded[i]._embedded.venues[0].name;
+                venUrl.textContent = data._embedded[i]._embedded.venues[0].url;
+
+
+            }
+        })
+}
