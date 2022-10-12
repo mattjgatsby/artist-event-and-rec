@@ -60,7 +60,7 @@ function getApiTicket () {
                 venInfo.textContent = data._embedded[i]._embedded.venues[0].name;
                 venUrl.textContent = data._embedded[i]._embedded.venues[0].url;
 
-
+                //next we add the appends when we have the proper Ids from the html
             }
         })
 }
