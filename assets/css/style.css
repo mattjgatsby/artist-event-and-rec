@@ -37,6 +37,15 @@
     height: 100vh;
 }
 
+
 #full-page {
     height: 100vh;
+    
+#input{
+    width: 500px;
+}
+#nav-footer-opening-page a li{
+    width: fit-content;
+    padding: 5px;
+
 }
