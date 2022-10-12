@@ -13,4 +13,11 @@ submitButtonEl.addEventListener("click", function(){
     }else{
         return;
     }
-})
+});
+
+inputText.addEventListener("keypress",function(event){
+    if (event.key === "Enter"){
+        event.preventDefault();
+        document.location = "./second.html?textInput=" + inputText.value.trim();
+    }
+});
