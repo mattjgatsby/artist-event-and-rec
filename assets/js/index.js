@@ -4,8 +4,7 @@
 
 var submitButtonEl = document.getElementById("submit-button-opening-page");
 var inputText = document.getElementById("search-input-opening-page")
-
-
+//comment for the sake of a comment
 submitButtonEl.addEventListener("click", function(event){
     event.preventDefault()
     inputText.textContent = ""
