@@ -2,8 +2,9 @@
 
 //Send user input to second page
 
-var submitButtonEl = document.getElementById("submitButtonPlaceholder");
-var inputText = document.getElementById("searchInputPlaceHolder");
+var submitButtonEl = document.getElementById("submit-button-opening-page");
+var inputText = document.getElementById("search-input-opening-page");
+
 
 submitButtonEl.addEventListener("click", function(){
     if(inputText.value != "" || inputText.value != null){
