@@ -76,8 +76,9 @@ function getApiTicket () {
 
 
 // I also need to work on requestUrl
-function clearDisplay(){
-
+function clearConcertDisplay(){
+    var elements = [    document.getElementById("right-column")
+                    ];
 }
 
 function displayElements(data){
