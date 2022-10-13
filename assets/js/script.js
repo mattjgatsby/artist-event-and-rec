@@ -108,15 +108,20 @@ function displayElements(data){
     
     conDateEl.setAttribute("class", "is-size-2");
 
-    ticketDatesEl.setAttribute("class", "is-size-2")
+    ticketDatesEl.setAttribute("class", "is-size-2");
 
-    venLocEl.setAttribute("class", "is-size-2")
+    venLocEl.setAttribute("class", "is-size-2");
 
-    btnDiv.setAttribute("class","is-flex is-justify-content-space-around")
+    btnDiv.setAttribute("class","is-flex is-justify-content-space-around");
 
-    buyTicBtn.setAttribute("class","button is-primary search-button is-size-4") //need to add event listeners
+    buyTicBtn.setAttribute("class","button is-primary search-button is-size-4"); //need to add event listeners
 
-    seeVenueBtn.setAttribute("class","button is-primary search-button is-size-4")// same with this one
+    seeVenueBtn.setAttribute("class","button is-primary search-button is-size-4");// same with this one
+
+    
+    //for second column
+    var imageDiv = document.createElement("div");
+    
 
 
     
