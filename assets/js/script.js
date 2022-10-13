@@ -24,13 +24,6 @@
 // data._embedded[i]._embedded.venues[0].city.name gives name of city that venue is located in
 // data._embedded[i]._embedded.venues[0].country.countryCode (can change to name instead of countryCode) gives country code
 
-//Taste Dive API Key: 443285-soundsli-Y4UIPD8B
-
-//TASTE DIVE API CALL: https://tastedive.com/api/similar?q= <artist/band> &k=443285-soundsli-Y4UIPD8B
-
-//TASTE DIVE API Request
-//data.similar.Results[] to get the list of recommendations
-//data.similar.Results[i].name to get the artist name
 
 
 var userSearchForm = document.getElementById("search-input-second-page")
@@ -131,6 +124,17 @@ function displayElements(data, count){
     var imageEl = document.createElement("image");
     imageDiv.setAttribute("class", "column is-flex is-align-items-center is-justify-content-center image")
     imageEl.setAttribute("src", data._embedded[count].image[0]) //need to talk about this
+
+    //for appending infoel
+    infoEl.appendChild(festNameEl); infoEl.appendChild(conDateEl); infoEl.appendChild(ticketDatesEl); infoEl.appendChild(venLocEl);
+    btnDiv.appendChild(buyTicBtn); btnDiv.appendChild(seeVenueBtn);
+    infoEl.appendChild(btnDiv);
+    //for appending imageDiv
+    imageDiv.appendChild(imageEl);
+    //for appending columnCardEl
+    columnsCardEl.appendChild(infoEl); columnsCardEl.appendChild(imageDiv);
+    //for appending cardEl
+    cardEl.appendChild(columnsCardEl)
 
 }
 
