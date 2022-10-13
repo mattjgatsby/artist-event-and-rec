@@ -24,6 +24,9 @@
 // data._embedded[i]._embedded.venues[0].city.name gives name of city that venue is located in
 // data._embedded[i]._embedded.venues[0].country.countryCode (can change to name instead of countryCode) gives country code
 
+// LAST FM API KEY: ad9eb14ec5af4e4148be415fdc964ee5
+// LAST FM API CALL: http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=blink-182&api_key=ad9eb14ec5af4e4148be415fdc964ee5&format=json
+// data.similarartists.artists is an array of 100 artists similar to the one give
 
 
 var userSearchForm = document.getElementById("search-input-second-page")
@@ -48,21 +51,25 @@ function getApiTicket () {
         })
         .then(function (data) {
             console.log(data)
-            for (var i =0; data.length; i++) {
+            // for (var i =0; data.length; i++) {
                 
-                var festName = document.createElement('h2');
-                var conDate = document.createElement('p');
-                var ticketFo= document.createElement('p');
-                var venInfo = document.createElement('p');
-                var venUrl = document.createElement('p');
+            //     var festName = document.createElement('h2');
+            //     var conDate = document.createElement('p');
+            //     var ticketFo= document.createElement('p');
+            //     var venInfo = document.createElement('p');
+            //     var venUrl = document.createElement('p');
 
-                festName.textContent = data._embedded[i].name;
-                conDate.textContent =  data._embedded[i].dates.start.localDate;
-                ticketFo.textContent = data._embedded[i].sales.public.startDateTime;
-                venInfo.textContent = data._embedded[i]._embedded.venues[0].name;
-                venUrl.textContent = data._embedded[i]._embedded.venues[0].url;
+            //     festName.textContent = data._embedded[i].name;
+            //     conDate.textContent =  data._embedded[i].dates.start.localDate;
+            //     ticketFo.textContent = data._embedded[i].sales.public.startDateTime;
+            //     venInfo.textContent = data._embedded[i]._embedded.venues[0].name;
+            //     venUrl.textContent = data._embedded[i]._embedded.venues[0].url;
 
-                //next we add the appends when we have the proper Ids from the html
+            //     //next we add the appends when we have the proper Ids from the html
+            // }
+            clearConcertDisplay();
+            for(var i=0; i<data._embedded.events.length; i++){
+                displayConcertElements(data, i);
             }
         })
 }
@@ -82,7 +89,7 @@ function clearConcertDisplay(){
 }
 
 //Display the right side of screen when called
-function displayElements(data, count){
+function displayConcertElements(data, count){
     //main container
     var cardEl = document.createElement('div');
     //for the first column
@@ -99,31 +106,33 @@ function displayElements(data, count){
     columnsCardEl.setAttribute("class", "columns card-content");
     infoEl.setAttribute("class","column is-9");
     festNameEl.setAttribute("class", "is-size-1");
-    festNameEl.textContent = "Festival Name: " + data._embedded[count].name;
+    festNameEl.textContent = "Festival Name: " + data._embedded.events[count].name;
     conDateEl.setAttribute("class", "is-size-2");
-    conDateEl.textContent = "Date: " + data._embedded[count].dates.start.localDate + " @ " + data._embedded[count].dates.start.localTime;
+    conDateEl.textContent = "Date: " + data._embedded.events[count].dates.start.localDate + " @ " + data._embedded.events[count].dates.start.localTime;
     ticketDatesEl.setAttribute("class", "is-size-2");
-    ticketDatesEl.textContent = "Tickets Sales Ends on" + data._embedded[count].sales.public.endDateTime;
+    ticketDatesEl.textContent = "Tickets Sales Ends on" + data._embedded.events[count].sales.public.endDateTime;
     venLocEl.setAttribute("class", "is-size-2");
-    venLocEl.textContent = "Venue Location: " + data._embedded._embedded.venues.name;
+    venLocEl.textContent = "Venue Location: " + data._embedded.events[count]._embedded.venues[0].name;
     //for buttons
     btnDiv.setAttribute("class","is-flex is-justify-content-space-around");
     buyTicBtn.setAttribute("class","button is-primary search-button is-size-4"); //need to add event listeners
     buyTicBtn.textContent = "Buy Ticket";
     buyTicBtn.onclick = function(){ //need to check if this works
-        location.href = data._embedded.outlets[1].url;
+        location.href = data._embedded.events[count].outlets[1].url;
     }
     seeVenueBtn.setAttribute("class","button is-primary search-button is-size-4");// same with this one
     seeVenueBtn.textContent = "See Venue";
     seeVenueBtn.onclick = function(){ //need to check if this works
-        location.href = data._embedded.outlets[0].url;
+        location.href = data._embedded.events[count].outlets[0].url;
     }
 
     //for second column
     var imageDiv = document.createElement("div");
-    var imageEl = document.createElement("image");
+    var imageEl = document.createElement("img");
     imageDiv.setAttribute("class", "column is-flex is-align-items-center is-justify-content-center image")
-    imageEl.setAttribute("src", data._embedded[count].image[0]) //need to talk about this
+    console.log(data._embedded.events[count].images[0].url); //testing
+    imageEl.setAttribute("src", data._embedded.events[count].images[0].url);  //need to talk about this
+    imageEl.setAttribute("alt", "concert photo"); 
 
     //for appending infoel
     infoEl.appendChild(festNameEl); infoEl.appendChild(conDateEl); infoEl.appendChild(ticketDatesEl); infoEl.appendChild(venLocEl);
@@ -134,15 +143,36 @@ function displayElements(data, count){
     //for appending columnCardEl
     columnsCardEl.appendChild(infoEl); columnsCardEl.appendChild(imageDiv);
     //for appending cardEl
-    cardEl.appendChild(columnsCardEl)
+    cardEl.appendChild(columnsCardEl);
+    //for appending  right side column
+    document.getElementById("right-column").appendChild(cardEl);
 
 }
 
 searchButton.addEventListener("click", function(event){
     event.preventDefault()
-    console.log(searchText)
     getApiTicket()
+    //getTasteDiveData()                          //I this is commit out
+    
 })
+//GO BACK BUTTON (PAGE 2)
 goBackButton.addEventListener("click", function(){
     document.location = "index.html"
 })
+
+
+function getLastFMData(artistName){
+    var lastFMURL = `http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=${artistName}&api_key=ad9eb14ec5af4e4148be415fdc964ee5&format=json`
+    fetch(lastFMURL)
+    .then(function (response) {
+
+        return response.json();
+    })
+    .then(function (data) {
+        console.log(data)
+        for (var i = 0; data.length; i++) {
+            
+        }
+    })
+    userSearchForm.value = ""
+}
