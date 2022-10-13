@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Sounds Like In Your Area</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="./assets/css/parsley.css">
     <link rel="stylesheet" href="./assets/css/style.css">
   </head>
   <body>
@@ -34,7 +35,9 @@
           <p class="subtitle custom-yellow custom-opacity-100">
             Enter an Artist here to See Events and Similar Artists!
           </p>
+          <form action="" id="form-page-1" data-parsley-minlength="1">
           <input class="input is-large custom-opacity-100" type="text" placeholder="Enter a band or Artist" id="search-input-opening-page">
+        </form>
           <div class="is-justify-content-left custom-opacity-100">
             <button class="button is-success is-large button is-fullwidth" id="submit-button-opening-page">Search</button>
             <p class="is-size-4 custom-opacity-100">Powered by Ticketmaster and Tast Dive</p>
@@ -62,6 +65,7 @@
         </nav>
       </div>
     </section>
+    <script src="./assets/js/parsley.js"></script>
     <script src="./assets/js/index.js"></script>
     </body>
 </html>
