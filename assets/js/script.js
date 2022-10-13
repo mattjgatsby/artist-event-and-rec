@@ -64,3 +64,15 @@ function getApiTicket () {
             }
         })
 }
+
+function recommendedArtApi () {
+    var requestTastA = 'https://tastedive.com/api/similar?q= <artist/band> &k=443285-soundsli-Y4UIPD8B'
+    fetch(requestTastA)
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+            for(var i =0; data.length; i++){
+            }
+        })
+}
