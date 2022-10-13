@@ -154,7 +154,6 @@ function getLastFMData(artistName){
             displayRecommendedArtists(recArtName);
         }
         saveArtistToLocalStorage(data.similarartists['@attr'].artist);
-        displaySearchHistory();
     })
 }
 
@@ -170,6 +169,7 @@ function loadPage () {
     var artistName = document.location.search.split("=")[1];
     getApiTicket(artistName);
     getLastFMData(artistName);
+    displaySearchHistory();
 }
 
 function saveArtistToLocalStorage(artistName) {
