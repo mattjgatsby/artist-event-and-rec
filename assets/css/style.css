@@ -1,9 +1,16 @@
+:root{
+    --yellowText: #f2ea74;
+}
+
 #front-page-main{
     height: 1000px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+.custom-yellow{
+ color: var(--yellowText)
 }
 
 #search-header{
@@ -20,6 +27,14 @@
 #front-page-title-pink{
     color: pink;
 }
+.custom-black-background{
+    background-color: black;
+    border-radius: 30px;
+
+}
+.custom-opacity-100{
+    opacity: 1;
+}
 #front-page-main p{
     color: white;
     font-size: 20px;
@@ -34,6 +49,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     height: 100vh;
+    background-position: center;
 }
 
 #full-page {
@@ -43,11 +59,12 @@
 #input{
     width: 500px;
 }
-#nav-footer-opening-page a li{
+#nav-opening-page a li{
     width: fit-content;
     padding: 5px;
 
 }
+
 #return-button{
     margin-top: 5px;
 }
