@@ -29,21 +29,14 @@
 //data.similarartists.artist[i].name is an array of 100 artists similar to the one give
 
 
-var userSearchForm = document.getElementById("search-input-second-page")
+var userSearchForm = document.getElementById("search-form")
 var searchButton = document.getElementById("search-button-second-page")
 var goBackButton = document.getElementById("go-back-button")
-var searchText = userSearchForm.value
+var searchText = document.getElementById("search-input-second-page")
 
 
-var festivalNameEL = document.getElementById("festival-name");
-var concertDateEL = document.getElementById("concert-date");
-var ticketInfoEL = document.getElementById("ticket-info");
-var ticketUrlEL = document.getElementById("ticket-url");
-var venueInfoEL = document.getElementById("venue-info");
-var venueUrlEL = document.getElementById("venue-url");
-
-function getApiTicket () {
-    var requestUrl = 'https://app.ticketmaster.com/discovery/v2/events?apikey=GGVmINtK7x38KXJV7CuAUu8cd8BCplr2&keyword='+userSearchForm.value+'&locale=*'
+function getApiTicket (artist) {
+    var requestUrl = 'https://app.ticketmaster.com/discovery/v2/events?apikey=GGVmINtK7x38KXJV7CuAUu8cd8BCplr2&keyword='+artist+'&locale=*'
     fetch(requestUrl)
         
         .then(function (response) {
@@ -51,37 +44,120 @@ function getApiTicket () {
         })
         .then(function (data) {
             console.log(data)
-            for (var i =0; data.length; i++) {
+            // for (var i =0; data.length; i++) {
                 
-                var festName = document.createElement('h2');
-                var conDate = document.createElement('p');
-                var ticketFo= document.createElement('p');
-                var venInfo = document.createElement('p');
-                var venUrl = document.createElement('p');
+            //     var festName = document.createElement('h2');
+            //     var conDate = document.createElement('p');
+            //     var ticketFo= document.createElement('p');
+            //     var venInfo = document.createElement('p');
+            //     var venUrl = document.createElement('p');
 
-                festName.textContent = data._embedded[i].name;
-                conDate.textContent =  data._embedded[i].dates.start.localDate;
-                ticketFo.textContent = data._embedded[i].sales.public.startDateTime;
-                venInfo.textContent = data._embedded[i]._embedded.venues[0].name;
-                venUrl.textContent = data._embedded[i]._embedded.venues[0].url;
+            //     festName.textContent = data._embedded[i].name;
+            //     conDate.textContent =  data._embedded[i].dates.start.localDate;
+            //     ticketFo.textContent = data._embedded[i].sales.public.startDateTime;
+            //     venInfo.textContent = data._embedded[i]._embedded.venues[0].name;
+            //     venUrl.textContent = data._embedded[i]._embedded.venues[0].url;
 
-                //next we add the appends when we have the proper Ids from the html
+            //     //next we add the appends when we have the proper Ids from the html
+            // }
+            clearConcertDisplay();
+            for(var i=0; i<data._embedded.events.length; i++){
+                displayConcertElements(data, i);
             }
         })
 }
 
 
-//SUBMIT BUTTON (PAGE 2)
+// Clear display on the right side of the screen(also can be modify to remove more than right side)
+function clearConcertDisplay(){
+    //list of containers needed to remove child of. Rn there are only 1
+    var elements = [    document.getElementById("right-column")
+                    ];
+
+    for(var i=0; i<elements.length; i++){
+        while (elements[i].hasChildNodes()){
+            elements[i].removeChild(elements[i].firstChild);
+        }
+    }
+}
+
+//Display the right side of screen when called
+function displayConcertElements(data, count){
+    //main container
+    var cardEl = document.createElement('div');
+    //for the first column
+    var columnsCardEl = document.createElement('div');
+    var infoEl = document.createElement('div');
+    var festNameEl = document.createElement('p');
+    var conDateEl = document.createElement('p');
+    var ticketDatesEl = document.createElement('p');
+    var venLocEl = document.createElement('p');
+    var btnDiv = document.createElement('div');
+    var buyTicBtn = document.createElement('button');
+    var seeVenueBtn = document.createElement('button');
+    cardEl.setAttribute("class","card mt-3");
+    columnsCardEl.setAttribute("class", "columns card-content");
+    infoEl.setAttribute("class","column is-9");
+    festNameEl.setAttribute("class", "is-size-2");
+    festNameEl.textContent = "Festival Name: " + data._embedded.events[count].name;
+    conDateEl.setAttribute("class", "is-size-3");
+    conDateEl.textContent = "Date: " + data._embedded.events[count].dates.start.localDate + " @ " + data._embedded.events[count].dates.start.localTime;
+    ticketDatesEl.setAttribute("class", "is-size-3");
+    ticketDatesEl.textContent = "Tickets Sales Ends on" + data._embedded.events[count].sales.public.endDateTime;
+    venLocEl.setAttribute("class", "is-size-3");
+    venLocEl.textContent = "Venue Location: " + data._embedded.events[count]._embedded.venues[0].name;
+    //for buttons
+    btnDiv.setAttribute("class","is-flex is-justify-content-space-around");
+    buyTicBtn.setAttribute("class","button is-primary search-button is-size-4"); //need to add event listeners
+    buyTicBtn.textContent = "Buy Ticket";
+    buyTicBtn.onclick = function(){ //need to check if this works
+        window.open(data._embedded.events[count].url);
+    }
+    seeVenueBtn.setAttribute("class","button is-primary search-button is-size-4");// same with this one
+    seeVenueBtn.textContent = "See Venue";
+    seeVenueBtn.onclick = function(){ //need to check if this works
+        window.open(data._embedded.events[count]._embedded.venues[0].url);
+    }
+
+    //for second column
+    var imageDiv = document.createElement("div");
+    var imageEl = document.createElement("img");
+    imageDiv.setAttribute("class", "column is-flex is-align-items-center is-justify-content-center image")
+    console.log(data._embedded.events[count].images[0].url); //testing
+    imageEl.setAttribute("src", data._embedded.events[count].images[0].url);  //need to talk about this
+    imageEl.setAttribute("alt", "concert photo"); 
+
+    //for appending infoel
+    infoEl.appendChild(festNameEl); infoEl.appendChild(conDateEl); infoEl.appendChild(ticketDatesEl); infoEl.appendChild(venLocEl);
+    btnDiv.appendChild(buyTicBtn); btnDiv.appendChild(seeVenueBtn);
+    infoEl.appendChild(btnDiv);
+    //for appending imageDiv
+    imageDiv.appendChild(imageEl);
+    //for appending columnCardEl
+    columnsCardEl.appendChild(infoEl); columnsCardEl.appendChild(imageDiv);
+    //for appending cardEl
+    cardEl.appendChild(columnsCardEl);
+    //for appending  right side column
+    document.getElementById("right-column").appendChild(cardEl);
+
+}
+
+userSearchForm.addEventListener("submit", function(event){
+    event.preventDefault()
+    document.location = "./search.html?textInput=" + searchText.value.trim();
+})
+
 searchButton.addEventListener("click", function(event){
     event.preventDefault()
-    //getApiTicket()
-    getTasteDiveData()
+    document.location = "./search.html?textInput=" + searchText.value.trim();
+    //getTasteDiveData()                          //I this is commit out
     
 })
 //GO BACK BUTTON (PAGE 2)
 goBackButton.addEventListener("click", function(){
     document.location = "index.html"
 })
+
 
 function getLastFMData(artistName){
     var lastFMURL = `http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=${artistName}&api_key=ad9eb14ec5af4e4148be415fdc964ee5&format=json`
@@ -114,6 +190,7 @@ function displayRecommendedArtists(recArtName){
 
 function loadPage () {
 var artistName = document.location.search.split("=")[1]
+    getApiTicket(artistName);
     getLastFMData(artistName);
 }
 
