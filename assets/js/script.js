@@ -43,24 +43,7 @@ function getApiTicket (artist) {
             return response.json();
         })
         .then(function (data) {
-            console.log(data)
-            // for (var i =0; data.length; i++) {
-                
-            //     var festName = document.createElement('h2');
-            //     var conDate = document.createElement('p');
-            //     var ticketFo= document.createElement('p');
-            //     var venInfo = document.createElement('p');
-            //     var venUrl = document.createElement('p');
-
-            //     festName.textContent = data._embedded[i].name;
-            //     conDate.textContent =  data._embedded[i].dates.start.localDate;
-            //     ticketFo.textContent = data._embedded[i].sales.public.startDateTime;
-            //     venInfo.textContent = data._embedded[i]._embedded.venues[0].name;
-            //     venUrl.textContent = data._embedded[i]._embedded.venues[0].url;
-
-            //     //next we add the appends when we have the proper Ids from the html
-            // }
-            clearConcertDisplay();
+            //clearConcertDisplay();
             for(var i=0; i<data._embedded.events.length; i++){
                 displayConcertElements(data, i);
             }
@@ -95,7 +78,7 @@ function displayConcertElements(data, count){
     var btnDiv = document.createElement('div');
     var buyTicBtn = document.createElement('button');
     var seeVenueBtn = document.createElement('button');
-    cardEl.setAttribute("class","card mt-3");
+    cardEl.setAttribute("class","card mt-5");
     columnsCardEl.setAttribute("class", "columns card-content");
     infoEl.setAttribute("class","column is-9");
     festNameEl.setAttribute("class", "is-size-2");
@@ -123,7 +106,6 @@ function displayConcertElements(data, count){
     var imageDiv = document.createElement("div");
     var imageEl = document.createElement("img");
     imageDiv.setAttribute("class", "column is-flex is-align-items-center is-justify-content-center image")
-    console.log(data._embedded.events[count].images[0].url); //testing
     imageEl.setAttribute("src", data._embedded.events[count].images[0].url);  //need to talk about this
     imageEl.setAttribute("alt", "concert photo"); 
 
@@ -213,6 +195,8 @@ function displaySearchHistory(){
         searchHistoryDiv.appendChild(searchHistoryItemButton)
     }
 }
+
+loadPage()
 displaySearchHistory()
 displayRecommendedArtists()
 
