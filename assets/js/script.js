@@ -102,11 +102,21 @@ function getLastFMData(artistName){
 function displayRecommendedArtists(){
     var recArtistsDiv = document.getElementById("recommended-artists-div")
     for(var i = 0; i<5; i++){
-        var artistButton = document.createElement("a")
+        var artistButton = document.createElement("button")
         artistButton.setAttribute("class", "artist-button")
         artistButton.textContent = "test artist button"
         recArtistsDiv.appendChild(artistButton)
     }
 
 }
+function displaySearchHistory(){
+    var searchHistoryDiv = document.getElementById("search-history-div")
+    for(var i = 0; i<5; i++){
+        var searchHistoryItemButton = document.createElement("button")
+        searchHistoryItemButton.setAttribute("class", "search-history-item")
+        searchHistoryItemButton.textContent = "test search item"
+        searchHistoryDiv.appendChild(searchHistoryItemButton)
+    }
+}
+displaySearchHistory()
 displayRecommendedArtists()
