@@ -36,6 +36,7 @@
 var userSearchForm = document.getElementById("search-input-second-page")
 var searchButton = document.getElementById("search-button-second-page")
 var goBackButton = document.getElementById("go-back-button")
+var searchText = userSearchForm.value
 
 
 var festivalNameEL = document.getElementById("festival-name");
@@ -46,12 +47,14 @@ var venueInfoEL = document.getElementById("venue-info");
 var venueUrlEL = document.getElementById("venue-url");
 
 function getApiTicket () {
-    var requestUrl = 'https://app.ticketmaster.com/discovery/v2/events?apikey=GGVmINtK7x38KXJV7CuAUu8cd8BCplr2&keyword= <artist/band> &locale=*'
+    var requestUrl = 'https://app.ticketmaster.com/discovery/v2/events?apikey=GGVmINtK7x38KXJV7CuAUu8cd8BCplr2&keyword='+userSearchForm.value+'&locale=*'
     fetch(requestUrl)
+        
         .then(function (response) {
             return response.json();
         })
         .then(function (data) {
+            console.log(data)
             for (var i =0; data.length; i++) {
                 
                 var festName = document.createElement('h2');
@@ -71,8 +74,12 @@ function getApiTicket () {
         })
 }
 
+
+
 searchButton.addEventListener("click", function(event){
     event.preventDefault()
+    console.log(searchText)
+    getApiTicket()
 })
 goBackButton.addEventListener("click", function(){
     document.location = "index.html"
