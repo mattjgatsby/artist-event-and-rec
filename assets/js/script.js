@@ -33,6 +33,9 @@ var userSearchForm = document.getElementById("search-form")
 var searchButton = document.getElementById("search-button-second-page")
 var goBackButton = document.getElementById("go-back-button")
 var searchText = document.getElementById("search-input-second-page")
+var formValidation = $("#search-input-second-page").parsley()
+$("#search-input-second-page").attr('data-parsley-minlength', 1)
+
 
 
 function getApiTicket (artist) {
@@ -127,9 +130,16 @@ function displayConcertElements(data, count){
     document.getElementById("right-column").appendChild(cardEl);
 }
 
+//Search From EVENT LISTENER
 userSearchForm.addEventListener("submit", function(event){
     event.preventDefault()
-    document.location = "./search.html?textInput=" + searchText.value.trim();
+    searchText.textContent = ""
+    if(formValidation.isValid() && searchText.value.trim() !=''){
+        document.location = "./search.html?textInput=" + searchText.value.trim();
+    }else{
+        return
+    }
+    
 })
 
 searchButton.addEventListener("click", function(event){
