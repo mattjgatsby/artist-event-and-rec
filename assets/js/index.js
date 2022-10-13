@@ -9,7 +9,7 @@ submitButtonEl.addEventListener("click", function(event){
     event.preventDefault()
     inputText.textContent = ""
     if(inputText.value != ""){
-        document.location = "./second.html?textInput=" + inputText.value.trim();
+        document.location = "./search.html?textInput=" + inputText.value.trim();
     }else{
         return;
     }
@@ -19,6 +19,6 @@ inputText.addEventListener("keypress",function(event){
     if (event.key === "Enter"){
         event.preventDefault();
         
-        document.location = "./second.html?textInput=" + inputText.value.trim();
+        document.location = "./search.html?textInput=" + inputText.value.trim();
     }
 });
