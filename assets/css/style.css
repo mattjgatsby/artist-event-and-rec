@@ -104,17 +104,15 @@
 #search-history-div{
     border: 3px solid black;
 }
-.artist-button{
-    background-color: gray;
-    font-size: 20px;
-    color: white;
+.artist-button,
+.search-history-item {
+    font-size: 15px;
     margin-top: 10px;
+    display: block;
+    width:100%;
+    white-space: normal;
+    height: fit-content;
 }
-.search-history-item{
-    background-color: gray;
-    font-size: 20px;
-    color: white;
-    margin-top: 10px;
-}
+
 
 

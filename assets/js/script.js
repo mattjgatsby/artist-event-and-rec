@@ -43,7 +43,7 @@ function getApiTicket (artist) {
             return response.json();
         })
         .then(function (data) {
-            //clearConcertDisplay();
+            // clearConcertDisplay();
             for(var i=0; i<data._embedded.events.length; i++){
                 displayConcertElements(data, i);
             }
@@ -132,10 +132,8 @@ userSearchForm.addEventListener("submit", function(event){
 searchButton.addEventListener("click", function(event){
     event.preventDefault()
     document.location = "./search.html?textInput=" + searchText.value.trim();
-    //getTasteDiveData()                          //I this is commit out
-    
 })
-//GO BACK BUTTON (PAGE 2)
+// GO BACK BUTTON (PAGE 2)
 goBackButton.addEventListener("click", function(){
     document.location = "index.html"
 })
@@ -145,58 +143,62 @@ function getLastFMData(artistName){
     var lastFMURL = `http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=${artistName}&api_key=ad9eb14ec5af4e4148be415fdc964ee5&format=json`
     fetch(lastFMURL)
     .then(function (response) {
-
         return response.json();
     })
     .then(function (data) {
         for (var i = 0; i < 10; i++) {
-            
-            var recArtName =data.similarartists.artist[i].name;
-            // console.log(data.similarartists.artist[i].name);
-            
-            displayRecommendedArtists(recArtName)
+            var recArtName = data.similarartists.artist[i].name;
+            displayRecommendedArtists(recArtName);
         }
+        saveArtistToLocalStorage(data.similarartists['@attr'].artist);
+        displaySearchHistory();
     })
-    userSearchForm.value = ""
 }
 
 function displayRecommendedArtists(recArtName){
     var recArtistsDiv = document.getElementById("recommended-artists-div")
-        var artistButton = document.createElement("button")
-        artistButton.setAttribute("class", "artist-button")
-        artistButton.textContent = recArtName
-        recArtistsDiv.appendChild(artistButton)
-    
-
+    var artistButton = document.createElement("button");
+    artistButton.setAttribute("class", "artist-button button is-primary");
+    artistButton.textContent = recArtName;
+    recArtistsDiv.appendChild(artistButton);
 }
 
 function loadPage () {
-var artistName = document.location.search.split("=")[1]
+    var artistName = document.location.search.split("=")[1];
     getApiTicket(artistName);
     getLastFMData(artistName);
 }
 
-function saveArtistToLocalStorate(artistName) {
+function saveArtistToLocalStorage(artistName) {
     var artistHistoryList = JSON.parse(localStorage.getItem('artistHistory'));
-    if(artistHistoryList.length >= 5) {
-        artistHistoryList.shift();
+    if(artistHistoryList.includes(artistName)){
+        return;
+    }
+    if(JSON.parse(localStorage.getItem('artistHistory'))){
+        var artistHistoryList = JSON.parse(localStorage.getItem('artistHistory'));
+
+        if(artistHistoryList.length >= 5) {
+            artistHistoryList.shift();
+        }
+    } else {
+        var artistHistoryList = [];
     }
     artistHistoryList.push(artistName);
     localStorage.setItem('artistHistory', JSON.stringify(artistHistoryList));
 }
 
-
 function displaySearchHistory(){
-    var searchHistoryDiv = document.getElementById("search-history-div")
-    for(var i = 0; i<5; i++){
+    var searchHistoryDiv = document.getElementById("search-history-div");
+    var searchHistoryArray = JSON.parse(localStorage.getItem('artistHistory'));
+    if(!searchHistoryArray) {
+        return;
+    }
+    for(var i = 0; i < searchHistoryArray.length; i++){
         var searchHistoryItemButton = document.createElement("button")
-        searchHistoryItemButton.setAttribute("class", "search-history-item")
-        searchHistoryItemButton.textContent = "test search item"
+        searchHistoryItemButton.setAttribute("class", "search-history-item button is-primary")
+        searchHistoryItemButton.textContent = searchHistoryArray[i];
         searchHistoryDiv.appendChild(searchHistoryItemButton)
     }
 }
 
-loadPage()
-displaySearchHistory()
-displayRecommendedArtists()
-
+loadPage();
