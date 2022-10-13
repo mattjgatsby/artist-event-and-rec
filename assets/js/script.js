@@ -75,12 +75,30 @@ function getApiTicket () {
 }
 
 
-
+//SUBMIT BUTTON (PAGE 2)
 searchButton.addEventListener("click", function(event){
     event.preventDefault()
-    console.log(searchText)
-    getApiTicket()
+    //getApiTicket()
+    getTasteDiveData()
+    
 })
+//GO BACK BUTTON (PAGE 2)
 goBackButton.addEventListener("click", function(){
     document.location = "index.html"
 })
+
+function getTasteDiveData(){
+    var tasteDiveURL = "https://tastedive.com/api/similar?q="+userSearchForm.value+"&k=443285-soundsli-Y4UIPD8B"
+    fetch(tasteDiveURL)
+    .then(function (response) {
+
+        return response.json();
+    })
+    .then(function (data) {
+        console.log(data)
+        for (var i =0; data.length; i++) {
+            
+        }
+    })
+    userSearchForm.value = ""
+}
