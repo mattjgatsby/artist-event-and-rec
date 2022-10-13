@@ -14,7 +14,7 @@ submitButtonEl.addEventListener("click", function(event){
     event.preventDefault()
     inputText.textContent = ""
     //TODO:
-    if(formValidation.isValid() && inputText.trim() !=''){
+    if(formValidation.isValid() && inputText.value.trim() !=''){
         document.location = "./search.html?textInput=" + inputText.value.trim();
     }else{
         return;
@@ -24,7 +24,7 @@ submitButtonEl.addEventListener("click", function(event){
 inputText.addEventListener("keypress",function(event){
     if (event.key === "Enter"){
         event.preventDefault();
-        if(formValidation.isValid() && inputText.trim() !=''){
+        if(formValidation.isValid() && inputText.value.trim() !=''){
             document.location = "./search.html?textInput=" + inputText.value.trim();
         }else{
             return;
