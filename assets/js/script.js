@@ -141,10 +141,18 @@ userSearchForm.addEventListener("submit", function(event){
     }
     
 })
+userSearchForm
+
+
 
 searchButton.addEventListener("click", function(event){
     event.preventDefault()
-    document.location = "./search.html?textInput=" + searchText.value.trim();
+    searchText.textContent = ""
+    if(formValidation.isValid() && searchText.value.trim() !=''){
+        document.location = "./search.html?textInput=" + searchText.value.trim();
+    }else{
+        return
+    }
 })
 // GO BACK BUTTON (PAGE 2)
 goBackButton.addEventListener("click", function(){
