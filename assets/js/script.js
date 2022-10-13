@@ -33,6 +33,8 @@ var userSearchForm = document.getElementById("search-form")
 var searchButton = document.getElementById("search-button-second-page")
 var goBackButton = document.getElementById("go-back-button")
 var searchText = document.getElementById("search-input-second-page")
+var formValidation = $("#search-input-second-page").parsley()
+
 
 
 function getApiTicket (artist) {
@@ -129,6 +131,7 @@ function displayConcertElements(data, count){
 
 userSearchForm.addEventListener("submit", function(event){
     event.preventDefault()
+
     document.location = "./search.html?textInput=" + searchText.value.trim();
 })
 
