@@ -89,9 +89,10 @@ function clearConcertDisplay(){
 }
 
 //Display the right side of screen when called
-function displayElements(data){
-    //for the first column
+function displayElements(data, count){
+    //main container
     var cardEl = document.createElement('div');
+    //for the first column
     var columnsCardEl = document.createElement('div');
     var infoEl = document.createElement('div');
     var festNameEl = document.createElement('p');
@@ -105,26 +106,26 @@ function displayElements(data){
     columnsCardEl.setAttribute("class", "columns card-content");
     infoEl.setAttribute("class","column is-9");
     festNameEl.setAttribute("class", "is-size-1");
-    
+    festNameEl.textContent = "Festival Name: " + data._embedded[count].name;
     conDateEl.setAttribute("class", "is-size-2");
-
+    conDateEl.textContent = "Date: " + data._embedded[count].dates.start.localDate + " @ " + data._embedded[count].dates.start.localTime;
     ticketDatesEl.setAttribute("class", "is-size-2");
-
+    ticketDatesEl.textContent = "Tickets Sales Ends on" + data._embedded[count].sales.public.endDateTime;
     venLocEl.setAttribute("class", "is-size-2");
-
+    venLocEl.textContent = "Venue Location: " + data._embedded._embedded.venues.name;
+    //for buttons
     btnDiv.setAttribute("class","is-flex is-justify-content-space-around");
-
     buyTicBtn.setAttribute("class","button is-primary search-button is-size-4"); //need to add event listeners
-
+    buyTicBtn.textContent = "Buy Ticket";
     seeVenueBtn.setAttribute("class","button is-primary search-button is-size-4");// same with this one
-
+    seeVenueBtn.textContent = "See Venue";
     
     //for second column
     var imageDiv = document.createElement("div");
-    
+    var imageEl = document.createElement("image");
+    imageDiv.setAttribute("class", "column is-flex is-align-items-center is-justify-content-center image")
+    imageEl.setAttribute("src", data._embedded[count].image[1]) //need to talk about this
 
-
-    
 }
 
 searchButton.addEventListener("click", function(event){
