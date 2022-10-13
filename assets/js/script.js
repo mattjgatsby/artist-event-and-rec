@@ -110,3 +110,12 @@ function displayRecommendedArtists(){
 
 }
 displayRecommendedArtists()
+
+function saveArtistToLocalStorate(artistName) {
+    var artistHistoryList = JSON.parse(localStorage.getItem('artistHistory'));
+    if(artistHistoryList.length >= 5) {
+        artistHistoryList.shift();
+    }
+    artistHistoryList.push(artistName);
+    localStorage.setItem('artistHistory', JSON.stringify(artistHistoryList));
+}
