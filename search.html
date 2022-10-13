@@ -18,8 +18,16 @@
                 <button class='button is-primary' id="search-button-second-page">Search for Another Artist</button>
                 <button class='button is-primary' id="go-back-button">Go back</button>
             </div>
-            <div class="is-flex is-flex-direction-column" id="recommended-artists-div">
-                <h1 id="recommended-artist-header">Recommended Artists and Bands</h1>
+            <div class="is-flex is-flex-direction-row" id="search-history-and-rec-artists-div">
+                <div id="recommended-artists-div" class="is-flex-direction-column column is-6 search-recommended-artists-div">
+                    <h1 class="search-recommended-artist-header">Recommended Artists and Bands</h1>
+                    <!-- dynamically created buttons go here -->
+                </div>
+                <div id="search-history-div" class="is-flex-direction-column column is-6 search-recommended-artists-div">
+                    <h1 class="search-recommended-artist-header">Your Search History</h1>
+                    <!-- dynamically crated buttons go here -->
+                </div>
+                
                 
             </div>            
         </div>

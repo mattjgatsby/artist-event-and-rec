@@ -180,7 +180,7 @@ function getLastFMData(artistName){
 
 function displayRecommendedArtists(recArtName){
     var recArtistsDiv = document.getElementById("recommended-artists-div")
-        var artistButton = document.createElement("a")
+        var artistButton = document.createElement("button")
         artistButton.setAttribute("class", "artist-button")
         artistButton.textContent = recArtName
         recArtistsDiv.appendChild(artistButton)
@@ -193,4 +193,26 @@ var artistName = document.location.search.split("=")[1]
     getApiTicket(artistName);
     getLastFMData(artistName);
 }
-loadPage();
+
+function saveArtistToLocalStorate(artistName) {
+    var artistHistoryList = JSON.parse(localStorage.getItem('artistHistory'));
+    if(artistHistoryList.length >= 5) {
+        artistHistoryList.shift();
+    }
+    artistHistoryList.push(artistName);
+    localStorage.setItem('artistHistory', JSON.stringify(artistHistoryList));
+}
+
+
+function displaySearchHistory(){
+    var searchHistoryDiv = document.getElementById("search-history-div")
+    for(var i = 0; i<5; i++){
+        var searchHistoryItemButton = document.createElement("button")
+        searchHistoryItemButton.setAttribute("class", "search-history-item")
+        searchHistoryItemButton.textContent = "test search item"
+        searchHistoryDiv.appendChild(searchHistoryItemButton)
+    }
+}
+displaySearchHistory()
+displayRecommendedArtists()
+

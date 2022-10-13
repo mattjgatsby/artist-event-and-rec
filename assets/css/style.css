@@ -91,20 +91,30 @@
     overflow-y: scroll;
 }
 
-#recommended-artists-div{
+.search-recommended-artists-div{
     border: 3px solid black;
-    margin: 20px;
+    margin-top: 20px;
     padding: 10px;
 }
-#recommended-artist-header{
+.search-recommended-artist-header{
     font-size: 30px;
     text-decoration: underline;
     
 }
+#search-history-div{
+    border: 3px solid black;
+}
 .artist-button{
     background-color: gray;
-    font-size: 30px;
+    font-size: 20px;
     color: white;
     margin-top: 10px;
 }
+.search-history-item{
+    background-color: gray;
+    font-size: 20px;
+    color: white;
+    margin-top: 10px;
+}
+
 
