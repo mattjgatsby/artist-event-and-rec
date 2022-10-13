@@ -88,9 +88,38 @@ function clearConcertDisplay(){
     }
 }
 
-//Display
+//Display the right side of screen when called
 function displayElements(data){
+    //for the first column
+    var cardEl = document.createElement('div');
+    var columnsCardEl = document.createElement('div');
+    var infoEl = document.createElement('div');
+    var festNameEl = document.createElement('p');
+    var conDateEl = document.createElement('p');
+    var ticketDatesEl = document.createElement('p');
+    var venLocEl = document.createElement('p');
+    var btnDiv = document.createElement('div');
+    var buyTicBtn = document.createElement('button');
+    var seeVenueBtn = document.createElement('button');
+    cardEl.setAttribute("class","card");
+    columnsCardEl.setAttribute("class", "columns card-content");
+    infoEl.setAttribute("class","column is-9");
+    festNameEl.setAttribute("class", "is-size-1");
+    
+    conDateEl.setAttribute("class", "is-size-2");
 
+    ticketDatesEl.setAttribute("class", "is-size-2")
+
+    venLocEl.setAttribute("class", "is-size-2")
+
+    btnDiv.setAttribute("class","is-flex is-justify-content-space-around")
+
+    buyTicBtn.setAttribute("class","button is-primary search-button is-size-4") //need to add event listeners
+
+    seeVenueBtn.setAttribute("class","button is-primary search-button is-size-4")// same with this one
+
+
+    
 }
 
 searchButton.addEventListener("click", function(event){
