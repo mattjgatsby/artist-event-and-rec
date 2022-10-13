@@ -77,3 +77,19 @@
 #go-back-button{
     margin-top: 10px;
 }
+#recommended-artists-div{
+    border: 3px solid black;
+    margin: 20px;
+    padding: 10px;
+}
+#recommended-artist-header{
+    font-size: 30px;
+    text-decoration: underline;
+    
+}
+.artist-button{
+    background-color: gray;
+    font-size: 30px;
+    color: white;
+    margin-top: 10px;
+}
