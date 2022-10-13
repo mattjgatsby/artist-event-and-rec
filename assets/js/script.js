@@ -26,7 +26,7 @@
 
 // LAST FM API KEY: ad9eb14ec5af4e4148be415fdc964ee5
 // LAST FM API CALL: http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=blink-182&api_key=ad9eb14ec5af4e4148be415fdc964ee5&format=json
-// data.similarartists.artists is an array of 100 artists similar to the one give
+//data.similarartists.artist[i].name is an array of 100 artists similar to the one give
 
 
 var userSearchForm = document.getElementById("search-input-second-page")
@@ -91,25 +91,31 @@ function getLastFMData(artistName){
         return response.json();
     })
     .then(function (data) {
-        console.log(data)
-        for (var i = 0; data.length; i++) {
+        for (var i = 0; i < 10; i++) {
             
+            var recArtName =data.similarartists.artist[i].name;
+            // console.log(data.similarartists.artist[i].name);
+            
+            displayRecommendedArtists(recArtName)
         }
     })
     userSearchForm.value = ""
 }
 
-function displayRecommendedArtists(){
+function displayRecommendedArtists(recArtName){
     var recArtistsDiv = document.getElementById("recommended-artists-div")
-    for(var i = 0; i<5; i++){
-        var artistButton = document.createElement("a")
+        var artistButton = document.createElement("button")
         artistButton.setAttribute("class", "artist-button")
-        artistButton.textContent = "test artist button"
+        artistButton.textContent = recArtName
         recArtistsDiv.appendChild(artistButton)
-    }
+    
 
 }
-displayRecommendedArtists()
+
+function loadPage () {
+var artistName = document.location.search.split("=")[1]
+    getLastFMData(artistName);
+}
 
 function saveArtistToLocalStorate(artistName) {
     var artistHistoryList = JSON.parse(localStorage.getItem('artistHistory'));
@@ -119,3 +125,17 @@ function saveArtistToLocalStorate(artistName) {
     artistHistoryList.push(artistName);
     localStorage.setItem('artistHistory', JSON.stringify(artistHistoryList));
 }
+
+
+function displaySearchHistory(){
+    var searchHistoryDiv = document.getElementById("search-history-div")
+    for(var i = 0; i<5; i++){
+        var searchHistoryItemButton = document.createElement("button")
+        searchHistoryItemButton.setAttribute("class", "search-history-item")
+        searchHistoryItemButton.textContent = "test search item"
+        searchHistoryDiv.appendChild(searchHistoryItemButton)
+    }
+}
+displaySearchHistory()
+displayRecommendedArtists()
+
