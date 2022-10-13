@@ -83,16 +83,16 @@ goBackButton.addEventListener("click", function(){
     document.location = "index.html"
 })
 
-function getTasteDiveData(){
-    var tasteDiveURL = "https://tastedive.com/api/similar?q="+userSearchForm.value+"&k=443285-soundsli-Y4UIPD8B"
-    fetch(tasteDiveURL)
+function getLastFMData(artistName){
+    var lastFMURL = `http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=${artistName}&api_key=ad9eb14ec5af4e4148be415fdc964ee5&format=json`
+    fetch(lastFMURL)
     .then(function (response) {
 
         return response.json();
     })
     .then(function (data) {
         console.log(data)
-        for (var i =0; data.length; i++) {
+        for (var i = 0; data.length; i++) {
             
         }
     })
