@@ -24,6 +24,9 @@
 // data._embedded[i]._embedded.venues[0].city.name gives name of city that venue is located in
 // data._embedded[i]._embedded.venues[0].country.countryCode (can change to name instead of countryCode) gives country code
 
+// LAST FM API KEY: ad9eb14ec5af4e4148be415fdc964ee5
+// LAST FM API CALL: http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=blink-182&api_key=ad9eb14ec5af4e4148be415fdc964ee5&format=json
+// data.similarartists.artists is an array of 100 artists similar to the one give
 
 
 var userSearchForm = document.getElementById("search-input-second-page")
@@ -79,27 +82,19 @@ searchButton.addEventListener("click", function(event){
 goBackButton.addEventListener("click", function(){
     document.location = "index.html"
 })
-/removeTaste
 
-
-function getTasteDiveData(){
-    var tasteDiveURL = "https://tastedive.com/api/similar?q="+userSearchForm.value+"&k=443285-soundsli-Y4UIPD8B"
-    fetch(tasteDiveURL)
+function getLastFMData(artistName){
+    var lastFMURL = `http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=${artistName}&api_key=ad9eb14ec5af4e4148be415fdc964ee5&format=json`
+    fetch(lastFMURL)
     .then(function (response) {
 
         return response.json();
     })
     .then(function (data) {
         console.log(data)
-        for (var i =0; data.length; i++) {
+        for (var i = 0; data.length; i++) {
             
         }
     })
     userSearchForm.value = ""
 }
-
-function getURLQuery () {
-    console.log(document.location.search.split('=')[1]);
-}
-
-getURLQuery();
