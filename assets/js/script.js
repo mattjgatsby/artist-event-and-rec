@@ -117,14 +117,20 @@ function displayElements(data, count){
     btnDiv.setAttribute("class","is-flex is-justify-content-space-around");
     buyTicBtn.setAttribute("class","button is-primary search-button is-size-4"); //need to add event listeners
     buyTicBtn.textContent = "Buy Ticket";
+    buyTicBtn.onclick = function(){ //need to check if this works
+        location.href = data._embedded.outlets[1].url;
+    }
     seeVenueBtn.setAttribute("class","button is-primary search-button is-size-4");// same with this one
     seeVenueBtn.textContent = "See Venue";
-    
+    seeVenueBtn.onclick = function(){ //need to check if this works
+        location.href = data._embedded.outlets[0].url;
+    }
+
     //for second column
     var imageDiv = document.createElement("div");
     var imageEl = document.createElement("image");
     imageDiv.setAttribute("class", "column is-flex is-align-items-center is-justify-content-center image")
-    imageEl.setAttribute("src", data._embedded[count].image[1]) //need to talk about this
+    imageEl.setAttribute("src", data._embedded[count].image[0]) //need to talk about this
 
 }
 
