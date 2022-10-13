@@ -4,12 +4,17 @@
 
 var submitButtonEl = document.getElementById("submit-button-opening-page");
 var inputText = document.getElementById("search-input-opening-page")
-//$('#form-page-1').parsley();
+console.log($("#form-page-1"))
+var formValidation = $('#form-page-1').parsley();
+$('#form-page-1').attr('data-parsley-minlength', 4);
+//data-parsley-minlength="6"
+//$("img").attr("width","500")
 //comment for the sake of a comment
 submitButtonEl.addEventListener("click", function(event){
     event.preventDefault()
     inputText.textContent = ""
-    if(inputText.value != ""){
+    //TODO:
+    if(formValidation.isValid()){
         document.location = "./search.html?textInput=" + inputText.value.trim();
     }else{
         return;
@@ -19,7 +24,10 @@ submitButtonEl.addEventListener("click", function(event){
 inputText.addEventListener("keypress",function(event){
     if (event.key === "Enter"){
         event.preventDefault();
-        
-        document.location = "./search.html?textInput=" + inputText.value.trim();
+        if(formValidation.isValid()){
+            document.location = "./search.html?textInput=" + inputText.value.trim();
+        }else{
+            return;
+        }
     }
 });
