@@ -75,12 +75,20 @@ function getApiTicket () {
 }
 
 
-// I also need to work on requestUrl
+// Clear display on the right side of the screen(also can be modify to remove more than right side)
 function clearConcertDisplay(){
+    //list of containers needed to remove child of. Rn there are only 1
     var elements = [    document.getElementById("right-column")
                     ];
+
+    for(var i=0; i<elements.length; i++){
+        while (elements[i].hasChildNodes()){
+            elements[i].removeChild(elements[i].firstChild);
+        }
+    }
 }
 
+//Display
 function displayElements(data){
 
 }
