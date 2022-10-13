@@ -104,7 +104,7 @@ function getLastFMData(artistName){
 
 function displayRecommendedArtists(recArtName){
     var recArtistsDiv = document.getElementById("recommended-artists-div")
-        var artistButton = document.createElement("a")
+        var artistButton = document.createElement("button")
         artistButton.setAttribute("class", "artist-button")
         artistButton.textContent = recArtName
         recArtistsDiv.appendChild(artistButton)
@@ -116,4 +116,18 @@ function loadPage () {
 var artistName = document.location.search.split("=")[1]
     getLastFMData(artistName);
 }
+
+function displaySearchHistory(){
+    var searchHistoryDiv = document.getElementById("search-history-div")
+    for(var i = 0; i<5; i++){
+        var searchHistoryItemButton = document.createElement("button")
+        searchHistoryItemButton.setAttribute("class", "search-history-item")
+        searchHistoryItemButton.textContent = "test search item"
+        searchHistoryDiv.appendChild(searchHistoryItemButton)
+    }
+}
+displaySearchHistory()
+displayRecommendedArtists()
+=======
 loadPage();
+
