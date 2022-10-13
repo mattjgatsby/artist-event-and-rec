@@ -117,6 +117,16 @@ var artistName = document.location.search.split("=")[1]
     getLastFMData(artistName);
 }
 
+function saveArtistToLocalStorate(artistName) {
+    var artistHistoryList = JSON.parse(localStorage.getItem('artistHistory'));
+    if(artistHistoryList.length >= 5) {
+        artistHistoryList.shift();
+    }
+    artistHistoryList.push(artistName);
+    localStorage.setItem('artistHistory', JSON.stringify(artistHistoryList));
+}
+
+
 function displaySearchHistory(){
     var searchHistoryDiv = document.getElementById("search-history-div")
     for(var i = 0; i<5; i++){
@@ -128,6 +138,4 @@ function displaySearchHistory(){
 }
 displaySearchHistory()
 displayRecommendedArtists()
-=======
-loadPage();
 
