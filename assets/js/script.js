@@ -24,13 +24,6 @@
 // data._embedded[i]._embedded.venues[0].city.name gives name of city that venue is located in
 // data._embedded[i]._embedded.venues[0].country.countryCode (can change to name instead of countryCode) gives country code
 
-//Taste Dive API Key: 443285-soundsli-Y4UIPD8B
-
-//TASTE DIVE API CALL: https://tastedive.com/api/similar?q= <artist/band> &k=443285-soundsli-Y4UIPD8B
-
-//TASTE DIVE API Request
-//data.similar.Results[] to get the list of recommendations
-//data.similar.Results[i].name to get the artist name
 
 
 var userSearchForm = document.getElementById("search-input-second-page")
@@ -86,6 +79,8 @@ searchButton.addEventListener("click", function(event){
 goBackButton.addEventListener("click", function(){
     document.location = "index.html"
 })
+/removeTaste
+
 
 function getTasteDiveData(){
     var tasteDiveURL = "https://tastedive.com/api/similar?q="+userSearchForm.value+"&k=443285-soundsli-Y4UIPD8B"
