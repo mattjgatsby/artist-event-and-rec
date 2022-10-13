@@ -26,7 +26,7 @@
 
 // LAST FM API KEY: ad9eb14ec5af4e4148be415fdc964ee5
 // LAST FM API CALL: http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=blink-182&api_key=ad9eb14ec5af4e4148be415fdc964ee5&format=json
-// data.similarartists.artists is an array of 100 artists similar to the one give
+//data.similarartists.artist[i].name is an array of 100 artists similar to the one give
 
 
 var userSearchForm = document.getElementById("search-input-second-page")
@@ -169,10 +169,29 @@ function getLastFMData(artistName){
         return response.json();
     })
     .then(function (data) {
-        console.log(data)
-        for (var i = 0; data.length; i++) {
+        for (var i = 0; i < 10; i++) {
             
+            var recArtName =data.similarartists.artist[i].name;
+            // console.log(data.similarartists.artist[i].name);
+            
+            displayRecommendedArtists(recArtName)
         }
     })
     userSearchForm.value = ""
 }
+
+function displayRecommendedArtists(recArtName){
+    var recArtistsDiv = document.getElementById("recommended-artists-div")
+        var artistButton = document.createElement("a")
+        artistButton.setAttribute("class", "artist-button")
+        artistButton.textContent = recArtName
+        recArtistsDiv.appendChild(artistButton)
+    
+
+}
+
+function loadPage () {
+var artistName = document.location.search.split("=")[1]
+    getLastFMData(artistName);
+}
+loadPage();
