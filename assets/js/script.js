@@ -44,8 +44,12 @@ function getApiTicket (artist) {
         })
         .then(function (data) {
             // clearConcertDisplay();
-            for(var i=0; i<data._embedded.events.length; i++){
-                displayConcertElements(data, i);
+            if(data.page.totalElements > 0){
+                for(var i=0; i<data._embedded.events.length; i++){
+                    displayConcertElements(data, i);
+                }
+            } else {
+                // Show text instead of cards that says there were no upcoming for that artist
             }
         })
 }
@@ -121,7 +125,6 @@ function displayConcertElements(data, count){
     cardEl.appendChild(columnsCardEl);
     //for appending  right side column
     document.getElementById("right-column").appendChild(cardEl);
-
 }
 
 userSearchForm.addEventListener("submit", function(event){
@@ -171,12 +174,11 @@ function loadPage () {
 
 function saveArtistToLocalStorage(artistName) {
     var artistHistoryList = JSON.parse(localStorage.getItem('artistHistory'));
-    if(artistHistoryList.includes(artistName)){
-        return;
-    }
     if(JSON.parse(localStorage.getItem('artistHistory'))){
         var artistHistoryList = JSON.parse(localStorage.getItem('artistHistory'));
-
+        if(artistHistoryList.includes(artistName)){
+            return;
+        }
         if(artistHistoryList.length >= 5) {
             artistHistoryList.shift();
         }
