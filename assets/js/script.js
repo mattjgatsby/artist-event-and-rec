@@ -102,3 +102,9 @@ function getTasteDiveData(){
     })
     userSearchForm.value = ""
 }
+
+function getURLQuery () {
+    console.log(document.location.search.split('=')[1]);
+}
+
+getURLQuery();
