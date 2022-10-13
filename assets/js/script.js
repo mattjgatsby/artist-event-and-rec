@@ -32,6 +32,12 @@
 //data.similar.Results[] to get the list of recommendations
 //data.similar.Results[i].name to get the artist name
 
+
+var userSearchForm = document.getElementById("search-input-second-page")
+var searchButton = document.getElementById("search-button-second-page")
+var goBackButton = document.getElementById("go-back-button")
+
+
 var festivalNameEL = document.getElementById("festival-name");
 var concertDateEL = document.getElementById("concert-date");
 var ticketInfoEL = document.getElementById("ticket-info");
@@ -64,3 +70,10 @@ function getApiTicket () {
             }
         })
 }
+
+searchButton.addEventListener("click", function(event){
+    event.preventDefault()
+})
+goBackButton.addEventListener("click", function(){
+    document.location = "index.html"
+})
