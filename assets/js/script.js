@@ -98,3 +98,15 @@ function getLastFMData(artistName){
     })
     userSearchForm.value = ""
 }
+
+function displayRecommendedArtists(){
+    var recArtistsDiv = document.getElementById("recommended-artists-div")
+    for(var i = 0; i<5; i++){
+        var artistButton = document.createElement("a")
+        artistButton.setAttribute("class", "artist-button")
+        artistButton.textContent = "test artist button"
+        recArtistsDiv.appendChild(artistButton)
+    }
+
+}
+displayRecommendedArtists()
