@@ -64,3 +64,13 @@ function getApiTicket () {
             }
         })
 }
+
+
+// I also need to work on requestUrl
+function clearDisplay(){
+
+}
+
+function displayElements(data){
+
+}
