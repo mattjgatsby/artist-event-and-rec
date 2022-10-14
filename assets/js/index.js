@@ -17,6 +17,7 @@ submitButtonEl.addEventListener("click", function(event){
     if(formValidation.isValid() && inputText.value.trim() !=''){
         document.location = "./search.html?textInput=" + inputText.value.trim();
     }else{
+        showModal();
         return;
     }
 });
@@ -31,3 +32,17 @@ inputText.addEventListener("keypress",function(event){
         }
     }
 });
+//--------------------Show Modals--------------------//
+
+function showModal () {
+    var modalEl = document.getElementById("grab-modal");
+    modalEl.classList.add('is-active');
+}
+
+function closeModal() {
+    var modalEl = document.getElementById("grab-modal");
+    modalEl.classList.remove('is-active');
+}
+document.querySelector('.delete').addEventListener('click', ()=> {
+    closeModal();
+})
