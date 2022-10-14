@@ -180,6 +180,9 @@ function displayRecommendedArtists(recArtName){
     var artistButton = document.createElement("button");
     artistButton.setAttribute("class", "artist-button button is-primary");
     artistButton.textContent = recArtName;
+    artistButton.addEventListener('click', (event) => {
+        document.location = "./search.html?textInput=" + event.target.textContent;
+    });
     recArtistsDiv.appendChild(artistButton);
 }
 
@@ -217,6 +220,9 @@ function displaySearchHistory(){
         var searchHistoryItemButton = document.createElement("button")
         searchHistoryItemButton.setAttribute("class", "search-history-item button is-primary")
         searchHistoryItemButton.textContent = searchHistoryArray[i];
+        searchHistoryItemButton.addEventListener('click', (event) => {
+            document.location = "./search.html?textInput=" + event.target.textContent;
+        });
         searchHistoryDiv.appendChild(searchHistoryItemButton)
     }
 }
