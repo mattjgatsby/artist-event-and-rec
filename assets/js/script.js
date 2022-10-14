@@ -38,6 +38,8 @@ $("#search-input-second-page").attr('data-parsley-minlength', 1)
 
 
 
+
+
 function getApiTicket (artist) {
     var requestUrl = 'https://app.ticketmaster.com/discovery/v2/events?apikey=GGVmINtK7x38KXJV7CuAUu8cd8BCplr2&keyword='+artist+'&locale=*'
     fetch(requestUrl)
@@ -136,15 +138,23 @@ userSearchForm.addEventListener("submit", function(event){
     searchText.textContent = ""
     if(formValidation.isValid() && searchText.value.trim() !=''){
         document.location = "./search.html?textInput=" + searchText.value.trim();
-    }else{
-        return
+    }else{ 
+        showModal();
     }
     
 })
 
+
+
+
 searchButton.addEventListener("click", function(event){
     event.preventDefault()
-    document.location = "./search.html?textInput=" + searchText.value.trim();
+    searchText.textContent = ""
+    if(formValidation.isValid() && searchText.value.trim() !=''){
+        document.location = "./search.html?textInput=" + searchText.value.trim();
+    }else{ 
+        showModal();
+    }
 })
 // GO BACK BUTTON (PAGE 2)
 goBackButton.addEventListener("click", function(){
@@ -164,7 +174,6 @@ function getLastFMData(artistName){
             displayRecommendedArtists(recArtName);
         }
         saveArtistToLocalStorage(data.similarartists['@attr'].artist);
-        displaySearchHistory();
     })
 }
 
@@ -180,6 +189,7 @@ function loadPage () {
     var artistName = document.location.search.split("=")[1];
     getApiTicket(artistName);
     getLastFMData(artistName);
+    displaySearchHistory();
 }
 
 function saveArtistToLocalStorage(artistName) {
@@ -214,3 +224,15 @@ function displaySearchHistory(){
 }
 
 loadPage();
+
+function showModal () {
+    var modalEl = document.getElementById("grab-modal");
+    modalEl.classList.add('is-active');
+}
+function closeModal() {
+    var modalEl = document.getElementById("grab-modal");
+    modalEl.classList.remove('is-active');
+}
+document.querySelector('.delete').addEventListener('click', ()=> {
+    closeModal();
+})
