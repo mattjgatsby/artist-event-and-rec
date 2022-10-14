@@ -2,6 +2,7 @@
 This application is designed for a user who wants to find concert events by an artist of their choice, or by any similar artists that are listed on the webpage.  The application keeps a list of the user's previous searches, allowing them to branch off from any of those jumping-off points.  The data provided comes from the Ticket Master API and from the Last FM API 
 
 ## Overview of the Application
+<img src="./assets/images/Sounds Like In Your Area.gif">
 
 ## Link to the Deployed Application
 https://mattjgatsby.github.io/artist-event-and-rec/
@@ -13,7 +14,7 @@ https://mattjgatsby.github.io/artist-event-and-rec/
 - It utilizes JQery
 
 ## Notable features
-- Fetches data from multible third-party APIs and consolodates that data into a user-friendly environment
+- Fetches data from multiple third-party APIs and consolidates that data into a user-friendly environment
 - input forms that relocate the user and also ensure that the user inputed a valid entry
 - dynamically generated cards, each with their own data and images displayed
 - dynamically generated buttons, which navigate the user to unique URLs
@@ -41,8 +42,22 @@ function getLastFMData(artistName){
     })
 }
 ```
-
+Here is the function that displays the recommended artists by dynamically generating buttons, each with their own unique properties
+```javascript
+function displayRecommendedArtists(recArtName){
+    var recArtistsDiv = document.getElementById("recommended-artists-div")
+    var artistButton = document.createElement("button");
+    artistButton.setAttribute("class", "artist-button button is-primary");
+    artistButton.textContent = recArtName;
+    artistButton.addEventListener('click', (event) => {
+        document.location = "./search.html?textInput=" + event.target.textContent;
+    });
+    recArtistsDiv.appendChild(artistButton);
+}
+```
 ## Learning points from this project
-- The biggest learning point from this project was learning how to collaborate as a groub.  This involved learning on the fly how git branches are created and merged and how to deal with conflicts in those merges.  We learned how to delegate certain portions of the project to certain people in order to avoid overlap in work.  Communication was a huge part of this process.  Communicating coding practices is much differen that simply knowing them.  We also learned that it's nice to have partners that are all helpful with the work, easy to get along with, and committed to putting in the time and the effort to work and learn together
-- Another big learning piont from this project was gaining more experience with looking at docs for APIs, javascript libraries, and styling frameworks.  These docs can seem very intimidating at first, but become less so as we work through a project like this
+- The biggest learning point from this project was learning how to collaborate as a group.  This involved learning on the fly how git branches are created and merged and how to deal with conflicts in those merges.  We learned how to delegate certain portions of the project to certain people in order to avoid overlap in work.  Communication was a huge part of this process.  Communicating coding practices is much different that simply knowing them.  We also learned that it's nice to have partners that are all helpful with the work, easy to get along with, and committed to putting in the time and the effort to work and learn together
+- Another big learning point from this project was gaining more experience with looking at docs for APIs, javascript libraries, and styling frameworks.  These docs can seem very intimidating at first, but become less so as we work through a project like this
 - Along with a few new coding practices learned, we also solidified previously learned concepts
+
+## -By Carlos Martiniz, Michael Seaman, Jeff Chan, Matt Gatspy
