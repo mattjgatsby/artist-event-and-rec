@@ -64,7 +64,7 @@ function getApiTicket (artist) {
 
 // Uses last.fm api to get data
 function getLastFMData(artistName){
-    var lastFMURL = `http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=${artistName}&api_key=ad9eb14ec5af4e4148be415fdc964ee5&format=json`
+    var lastFMURL = `https://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=${artistName}&api_key=ad9eb14ec5af4e4148be415fdc964ee5&format=json`
     fetch(lastFMURL)
     .then(function (response) {
         return response.json();
