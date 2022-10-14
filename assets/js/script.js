@@ -38,6 +38,8 @@ $("#search-input-second-page").attr('data-parsley-minlength', 1)
 
 
 
+
+
 function getApiTicket (artist) {
     var requestUrl = 'https://app.ticketmaster.com/discovery/v2/events?apikey=GGVmINtK7x38KXJV7CuAUu8cd8BCplr2&keyword='+artist+'&locale=*'
     fetch(requestUrl)
@@ -93,7 +95,7 @@ function displayConcertElements(data, count){
     conDateEl.setAttribute("class", "is-size-3");
     conDateEl.textContent = "Date: " + data._embedded.events[count].dates.start.localDate + " @ " + data._embedded.events[count].dates.start.localTime;
     ticketDatesEl.setAttribute("class", "is-size-3");
-    ticketDatesEl.textContent = "Tickets Sales Ends on" + data._embedded.events[count].sales.public.endDateTime;
+    ticketDatesEl.textContent = "Tickets Sales Ends on " + data._embedded.events[count].sales.public.endDateTime;
     venLocEl.setAttribute("class", "is-size-3");
     venLocEl.textContent = "Venue Location: " + data._embedded.events[count]._embedded.venues[0].name;
     //for buttons
@@ -136,8 +138,8 @@ userSearchForm.addEventListener("submit", function(event){
     searchText.textContent = ""
     if(formValidation.isValid() && searchText.value.trim() !=''){
         document.location = "./search.html?textInput=" + searchText.value.trim();
-    }else{
-        return
+    }else{ 
+        showModal();
     }
     
 })
@@ -150,8 +152,8 @@ searchButton.addEventListener("click", function(event){
     searchText.textContent = ""
     if(formValidation.isValid() && searchText.value.trim() !=''){
         document.location = "./search.html?textInput=" + searchText.value.trim();
-    }else{
-        return
+    }else{ 
+        showModal();
     }
 })
 // GO BACK BUTTON (PAGE 2)
@@ -180,6 +182,9 @@ function displayRecommendedArtists(recArtName){
     var artistButton = document.createElement("button");
     artistButton.setAttribute("class", "artist-button button is-primary");
     artistButton.textContent = recArtName;
+    artistButton.addEventListener('click', (event) => {
+        document.location = "./search.html?textInput=" + event.target.textContent;
+    });
     recArtistsDiv.appendChild(artistButton);
 }
 
@@ -217,8 +222,23 @@ function displaySearchHistory(){
         var searchHistoryItemButton = document.createElement("button")
         searchHistoryItemButton.setAttribute("class", "search-history-item button is-primary")
         searchHistoryItemButton.textContent = searchHistoryArray[i];
+        searchHistoryItemButton.addEventListener('click', (event) => {
+            document.location = "./search.html?textInput=" + event.target.textContent;
+        });
         searchHistoryDiv.appendChild(searchHistoryItemButton)
     }
 }
 
 loadPage();
+
+function showModal () {
+    var modalEl = document.getElementById("grab-modal");
+    modalEl.classList.add('is-active');
+}
+function closeModal() {
+    var modalEl = document.getElementById("grab-modal");
+    modalEl.classList.remove('is-active');
+}
+document.querySelector('.delete').addEventListener('click', ()=> {
+    closeModal();
+})
