@@ -55,6 +55,9 @@ function getApiTicket (artist) {
                 }
             } else {
                 // Show text instead of cards that says there were no upcoming for that artist
+                var fail = document.createElement('h1');
+                fail.textContent = `No results were found for '${artist.split('%20').join(' ')}'`;
+                document.getElementById("right-column").appendChild(fail);
             }
         })
 }
