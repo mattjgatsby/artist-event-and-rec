@@ -103,7 +103,7 @@ function displayConcertElements(data, count){
     conDateEl.setAttribute("class", "is-size-3");
     conDateEl.textContent = "Date: " + data._embedded.events[count].dates.start.localDate + " @ " + data._embedded.events[count].dates.start.localTime;
     ticketDatesEl.setAttribute("class", "is-size-3");
-    ticketDatesEl.textContent = "Tickets Sales Start on " + data._embedded.events[count].sales.public.startDateTime.split('T')[0];
+    ticketDatesEl.textContent = "Tickets Sale date: " + data._embedded.events[count].sales.public.startDateTime.split('T')[0];
     venLocEl.setAttribute("class", "is-size-3");
     venLocEl.textContent = "Venue Location: " + data._embedded.events[count]._embedded.venues[0].name;
     //for buttons
