@@ -92,17 +92,18 @@
 }
 
 .search-recommended-artists-div{
-    border: 3px solid black;
+    border: 2px solid black;
     margin-top: 20px;
     padding: 10px;
+    border-right: 1px solid black;
 }
 .search-recommended-artist-header{
     font-size: 30px;
     text-decoration: underline;
-    
 }
 #search-history-div{
-    border: 3px solid black;
+    border: 2px solid black;
+    border-left: 1px solid black;
 }
 .artist-button,
 .search-history-item {
