@@ -28,7 +28,9 @@
 // LAST FM API CALL: http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=blink-182&api_key=ad9eb14ec5af4e4148be415fdc964ee5&format=json
 //data.similarartists.artist[i].name is an array of 100 artists similar to the one give
 
+loadPage();
 
+//--------------------Variables--------------------//
 var userSearchForm = document.getElementById("search-form")
 var searchButton = document.getElementById("search-button-second-page")
 var goBackButton = document.getElementById("go-back-button")
@@ -36,10 +38,9 @@ var searchText = document.getElementById("search-input-second-page")
 var formValidation = $("#search-input-second-page").parsley()
 $("#search-input-second-page").attr('data-parsley-minlength', 1)
 
+//--------------------API Fetch Functions--------------------//
 
-
-
-
+// Uses ticket master api to get data
 function getApiTicket (artist) {
     var requestUrl = 'https://app.ticketmaster.com/discovery/v2/events?apikey=GGVmINtK7x38KXJV7CuAUu8cd8BCplr2&keyword='+artist+'&locale=*'
     fetch(requestUrl)
@@ -48,7 +49,6 @@ function getApiTicket (artist) {
             return response.json();
         })
         .then(function (data) {
-            // clearConcertDisplay();
             if(data.page.totalElements > 0){
                 for(var i=0; i<data._embedded.events.length; i++){
                     displayConcertElements(data, i);
@@ -59,21 +59,25 @@ function getApiTicket (artist) {
         })
 }
 
-
-// Clear display on the right side of the screen(also can be modify to remove more than right side)
-function clearConcertDisplay(){
-    //list of containers needed to remove child of. Rn there are only 1
-    var elements = [    document.getElementById("right-column")
-                    ];
-
-    for(var i=0; i<elements.length; i++){
-        while (elements[i].hasChildNodes()){
-            elements[i].removeChild(elements[i].firstChild);
+// Uses last.fm api to get data
+function getLastFMData(artistName){
+    var lastFMURL = `http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=${artistName}&api_key=ad9eb14ec5af4e4148be415fdc964ee5&format=json`
+    fetch(lastFMURL)
+    .then(function (response) {
+        return response.json();
+    })
+    .then(function (data) {
+        for (var i = 0; i < 10; i++) {
+            var recArtName = data.similarartists.artist[i].name;
+            displayRecommendedArtists(recArtName);
         }
-    }
+        saveArtistToLocalStorage(data.similarartists['@attr'].artist);
+    })
 }
 
-//Display the right side of screen when called
+//--------------------Display Dynamically Created Content Functions--------------------//
+
+//Display concert information cards
 function displayConcertElements(data, count){
     //main container
     var cardEl = document.createElement('div');
@@ -132,51 +136,7 @@ function displayConcertElements(data, count){
     document.getElementById("right-column").appendChild(cardEl);
 }
 
-//Search From EVENT LISTENER
-userSearchForm.addEventListener("submit", function(event){
-    event.preventDefault()
-    searchText.textContent = ""
-    if(formValidation.isValid() && searchText.value.trim() !=''){
-        document.location = "./search.html?textInput=" + searchText.value.trim();
-    }else{ 
-        showModal();
-    }
-    
-})
-
-
-
-
-searchButton.addEventListener("click", function(event){
-    event.preventDefault()
-    searchText.textContent = ""
-    if(formValidation.isValid() && searchText.value.trim() !=''){
-        document.location = "./search.html?textInput=" + searchText.value.trim();
-    }else{ 
-        showModal();
-    }
-})
-// GO BACK BUTTON (PAGE 2)
-goBackButton.addEventListener("click", function(){
-    document.location = "index.html"
-})
-
-
-function getLastFMData(artistName){
-    var lastFMURL = `http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=${artistName}&api_key=ad9eb14ec5af4e4148be415fdc964ee5&format=json`
-    fetch(lastFMURL)
-    .then(function (response) {
-        return response.json();
-    })
-    .then(function (data) {
-        for (var i = 0; i < 10; i++) {
-            var recArtName = data.similarartists.artist[i].name;
-            displayRecommendedArtists(recArtName);
-        }
-        saveArtistToLocalStorage(data.similarartists['@attr'].artist);
-    })
-}
-
+//Display recommended artist buttons
 function displayRecommendedArtists(recArtName){
     var recArtistsDiv = document.getElementById("recommended-artists-div")
     var artistButton = document.createElement("button");
@@ -188,29 +148,17 @@ function displayRecommendedArtists(recArtName){
     recArtistsDiv.appendChild(artistButton);
 }
 
-function loadPage () {
-    var artistName = document.location.search.split("=")[1];
-    getApiTicket(artistName);
-    getLastFMData(artistName);
-    displaySearchHistory();
-}
-
-function saveArtistToLocalStorage(artistName) {
-    var artistHistoryList = JSON.parse(localStorage.getItem('artistHistory'));
-    if(JSON.parse(localStorage.getItem('artistHistory'))){
-        var artistHistoryList = JSON.parse(localStorage.getItem('artistHistory'));
-        if(artistHistoryList.includes(artistName)){
-            return;
-        }
-        if(artistHistoryList.length >= 5) {
-            artistHistoryList.shift();
-        }
-    } else {
-        var artistHistoryList = [];
+//Search From EVENT LISTENER
+userSearchForm.addEventListener("submit", function(event){
+    event.preventDefault()
+    searchText.textContent = ""
+    if(formValidation.isValid() && searchText.value.trim() !=''){
+        document.location = "./search.html?textInput=" + searchText.value.trim();
+    }else{ 
+        showModal();
     }
-    artistHistoryList.push(artistName);
-    localStorage.setItem('artistHistory', JSON.stringify(artistHistoryList));
-}
+    
+})
 
 function displaySearchHistory(){
     var searchHistoryDiv = document.getElementById("search-history-div");
@@ -229,16 +177,65 @@ function displaySearchHistory(){
     }
 }
 
-loadPage();
+//--------------------Local Storage History Saving--------------------//
+function saveArtistToLocalStorage(artistName) {
+    var artistHistoryList = JSON.parse(localStorage.getItem('artistHistory'));
+    if(JSON.parse(localStorage.getItem('artistHistory'))){
+        var artistHistoryList = JSON.parse(localStorage.getItem('artistHistory'));
+        if(artistHistoryList.includes(artistName)){
+            return;
+        }
+        if(artistHistoryList.length >= 5) {
+            artistHistoryList.shift();
+        }
+    } else {
+        var artistHistoryList = [];
+    }
+    artistHistoryList.push(artistName);
+    localStorage.setItem('artistHistory', JSON.stringify(artistHistoryList));
+}
+
+
+//--------------------Show Modals--------------------//
 
 function showModal () {
     var modalEl = document.getElementById("grab-modal");
     modalEl.classList.add('is-active');
 }
+
 function closeModal() {
     var modalEl = document.getElementById("grab-modal");
     modalEl.classList.remove('is-active');
 }
+
+//--------------------Function loading on start--------------------//
+
+function loadPage () {
+    var artistName = document.location.search.split("=")[1];
+    getApiTicket(artistName);
+    getLastFMData(artistName);
+    displaySearchHistory();
+}
+
+//--------------------Event Listeners--------------------//
+
+//Event Listener for search button click
+searchButton.addEventListener("click", function(event){
+    event.preventDefault()
+    searchText.textContent = ""
+    if(formValidation.isValid() && searchText.value.trim() !=''){
+        document.location = "./search.html?textInput=" + searchText.value.trim();
+    }else{ 
+        showModal();
+    }
+})
+
+
+// GO BACK BUTTON (PAGE 2)
+goBackButton.addEventListener("click", function(){
+    document.location = "index.html"
+})
+
 document.querySelector('.delete').addEventListener('click', ()=> {
     closeModal();
 })
