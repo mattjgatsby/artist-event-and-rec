@@ -105,7 +105,7 @@
 }
 .search-recommended-artist-header{
     font-size: 25px;
-    text-decoration: underline;
+    /* text-decoration: underline; */
     text-align: center;
 }
 #search-history-div{
