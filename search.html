@@ -11,8 +11,9 @@
 </head>
 <body>
     <div class="columns m-0" id="full-page">
-        <div class='column is-3' id="left-column">
+        <div class='column is-4' id="left-column">
             <div class="is-flex is-flex-direction-column">
+                <img class="mb-3 mr-auto ml-auto" id="logo-image" src="./assets/images/Sounds-like-logo.png">
                 <form id='search-form' action="">
                     <input class='input m-0' type="text" name="search" id="search-input-second-page" placeholder="Enter artist name">
                 </form>
@@ -21,7 +22,11 @@
             </div>
             <div class="is-flex is-flex-direction-row" id="search-history-and-rec-artists-div">
                 <div id="recommended-artists-div" class="is-flex-direction-column column is-6 search-recommended-artists-div">
+
                     <h1 class="search-recommended-artist-header">Similar Artists</h1>
+
+                    <h1 class="search-recommended-artist-header">Other Similar Artists</h1>
+
                     <!-- dynamically created buttons go here -->
                 </div>
                 <div id="search-history-div" class="is-flex-direction-column column is-6 search-recommended-artists-div">
