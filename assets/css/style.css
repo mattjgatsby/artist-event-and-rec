@@ -74,6 +74,12 @@
 
 }
 
+#logo-image{
+    width: 200px;
+    height: 200px;
+    border-radius: 100px;
+}
+
 #return-button{
     margin-top: 5px;
 }
@@ -98,8 +104,9 @@
     border-right: 1px solid black;
 }
 .search-recommended-artist-header{
-    font-size: 30px;
+    font-size: 25px;
     text-decoration: underline;
+    text-align: center;
 }
 #search-history-div{
     border: 2px solid black;
