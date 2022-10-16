@@ -4,7 +4,6 @@
 
 var submitButtonEl = document.getElementById("submit-button-opening-page");
 var inputText = document.getElementById("search-input-opening-page")
-console.log($("#form-page-1"))
 var formValidation = $('#form-page-1').parsley();
 $('#form-page-1').attr('data-parsley-minlength', 1);
 //data-parsley-minlength="6"
