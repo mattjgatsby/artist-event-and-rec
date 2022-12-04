@@ -60,4 +60,4 @@ function displayRecommendedArtists(recArtName){
 - Another big learning point from this project was gaining more experience with looking at docs for APIs, javascript libraries, and styling frameworks.  These docs can seem very intimidating at first, but become less so as we work through a project like this
 - Along with a few new coding practices learned, we also solidified previously learned concepts
 
-## -By Carlos Martiniz, Michael Seaman, Jeff Chan, Matt Gatspy
+## -By Carlos Martinez, Michael Seaman, Jeff Chan, Matt Gatspy
